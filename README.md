@@ -10,9 +10,9 @@ git clone https://github.com/daniel-dpq/TangleDiff.git
 cd TangleDiff
 conda env create --name=tanglediff -f environment.yml
 conda activate tanglediff
+pip install --no-deps timm==0.9.12
 ```
 
-Then run `pip install --no-deps timm==0.9.12` to install timm without its dependencies.
 
 Code organization:
 * `train.py` - the main script to train the model.
