@@ -12,6 +12,8 @@ conda env create --name=tanglediff -f environment.yml
 conda activate tanglediff
 ```
 
+Then run `pip install --no-deps timm==0.9.12` to install timm without its dependencies.
+
 Code organization:
 * `train.py` - the main script to train the model.
 * `sample.py` - the main script to sample entangled sequences.
