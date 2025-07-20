@@ -56,4 +56,4 @@ Specifiy configures in `config/sample.yaml` before sampling. If you are using yo
 hyperparameter that controls the strength of the guidance toward the conditional signal in classifer free guidance. 1 for unconditional generation.
 * `sample.out_dir/` - path to save.
 
-We provide some script examples to run unconditional, length-specified, binding-energy-specified sampling in `./sample.sh`
+We provide some script examples to run unconditional, length-specified, binding-energy-specified sampling in `./sample.sh`. Some example outputs are also provided in `examples`.
