@@ -1,0 +1,63 @@
+data:
+  data_file: ~/TangleDiff/data/Uniref50_entangled_homodimer.csv
+  max_length: 100
+  seed: 42
+  min_plddt: 80
+  min_gln: 0.7
+  min_bsa: 0
+  max_binding_energy: 0
+  max_sym_rmsd: 3
+  use_core: true
+  binding_energy_seps: [-160, -140, -120, -100]
+
+model:
+  name: 'DiT-B/2' #'DiT-L/2' # 'DiT-XL/2' 'DiT-S/2'  'DiT-B/2' 
+  learn_sigma: False
+  self_cond: true           
+  class_dropout_prob: 0.1
+
+diffusion:
+  timestep_respacing: ""
+  noise_schedule: "linear"  
+  use_kl: False         
+  sigma_small: False
+  predict_xstart: True          
+  learn_sigma: ${model.learn_sigma}
+  rescale_learned_sigmas: False
+  self_cond: ${model.self_cond}
+  diffusion_steps: 1000
+  
+experiment:
+  project: tanglediff
+  name: exp_${now:Y%Y-M%m-D%d_%H-%M-%S}
+  log_dir:  results/${experiment.name}
+  ckpt: null
+
+  seq_encode_mode: 'esm2_t33_650M_UR50D'  # VHSE or esm2_t33_650M_UR50D or esm2_t30_150M_UR50D or esm2_t36_3B_UR50D or tape_base or tape_unirep
+  logits: True          
+
+  use_cfg: True          
+  cfg_scale: 4.
+  
+  timestep_sampler: loss-second-moment   # loss-second-moment or uniform   
+
+  global_batch_size: 128
+  accumulate_steps: 1
+  train_lr: 1e-4          
+  epochs: 500
+  adam_betas: [0.9, 0.999]
+
+  save_and_sample_interval: 8000
+  log_interval: 400
+  num_samples: 50
+  sample_method: 'ddpm'
+
+  mixed_precision: false
+  max_grad_norm: 1.
+  use_wandb: false
+
+hydra:
+  run:
+    dir: "${experiment.log_dir}"
+  job:
+    chdir: True

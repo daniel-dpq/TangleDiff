@@ -1,0 +1,53 @@
+data:
+  data_file: ~/TangleDiff/data/Uniref50_entangled_homodimer.csv
+  max_length: 100
+  seed: 42
+  min_plddt: 80
+  min_gln: 0.7
+  min_bsa: 0
+  max_binding_energy: 0
+  max_sym_rmsd: 3
+  use_core: true
+  binding_energy_seps: [-160, -140, -120, -100]
+
+model:
+  name: 'DiT-B/2'
+  learn_sigma: False
+  self_cond: True       
+  class_dropout_prob: 0.1
+
+diffusion:
+  noise_schedule: "linear"
+  use_kl: False
+  sigma_small: False
+  predict_xstart: True          
+  learn_sigma: ${model.learn_sigma}
+  self_cond: ${model.self_cond}
+  rescale_learned_sigmas: False
+  diffusion_steps: 1000
+
+lm:
+  seq_encode_mode: 'esm2_t33_650M_UR50D' # VHSE or esm2_t33_650M_UR50D or esm2_t30_150M_UR50D or esm2_t36_3B_UR50D
+  logits: True
+
+condition:
+  binding_energy_condition: null
+
+sample:
+  ckpt: weight/model-118000.pt
+  num_samples: 1000
+  per_proc_batch_size: 50
+  sample_length: null
+  method: 'ddpm' # 'ddpm' or 'ddim'
+  num_sampling_steps: 1000
+  cfg_scale: 1.
+  out_dir: samples
+
+# suppress hydra output
+defaults:  
+  - override hydra/hydra_logging: disabled  
+  - override hydra/job_logging: disabled  
+hydra:  
+  output_subdir: null  
+  run:  
+    dir: .
