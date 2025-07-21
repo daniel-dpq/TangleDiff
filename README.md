@@ -48,14 +48,14 @@ Specify the number of GPU used to train though `nproc_per_node` argument in `tra
 Sampling
 -----------------------------------------------------------------------------------------------------
 
-Specifiy configures in `config/sample.yaml` before sampling. If you are using your own model, make sure data, model, diffusion configures are specified the same as your training figures. Some important configures are listed as:
+Specifiy configures in `config/sample.yaml` before sampling. If you are using your own model, make sure data, model, diffusion configures are specified the same as your training configures. Some important configures are listed as:
 * `condition.binding_energy_condition` - binding energy range. Choices: `0 ~ 4`
 * `sample.ckpt` - model checkpoint to load.
 * `sample.num_samples/` - number of sequences to sample.
 * `sample.per_proc_batch_size/` - batch size per GPU.
 * `sample.sample_length/` - sample lengths. can be `null`, an `int` or a `list` range.
 * `sample.cfg_scale/` - 
-hyperparameter that controls the strength of the guidance toward the conditional signal in classifer free guidance. 1 for unconditional generation.
+hyperparameter that controls the strength of the guidance toward the conditional signal in classifer-free guidance. 1 for unconditional generation.
 * `sample.out_dir/` - path to save.
 
 We provide some script examples to run unconditional, length-specified, binding-energy-specified sampling in `./sample.sh`. Some example outputs are also provided in `examples`.
