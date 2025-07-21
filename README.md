@@ -1,5 +1,5 @@
 # TangleDiff
-TangleDiff is a powerful latent-diffusion-based generative model capbale of designing foldable, diverse and novel protein sequences that form into entangled homodimers. The current version enables the specification of sequence length range and inter-chain binding energy range during generation. Generated sequences by TangleDiff have been successfully made into stress-relaxation hydrogels.
+TangleDiff is a powerful latent-diffusion-based generative model capbale of designing foldable, diverse and novel protein sequences that fold into entangled homodimers. The current version enables the specification of sequence length range and inter-chain binding energy range during generation. Generated sequences by TangleDiff have been successfully made into stress-relaxation hydrogels.
 
 We present here a dataset of 79,890 entangled sequences collected through large-scale sequence screening, ESMFold structure prediction and a setries of data cleaning steps. Sequences and all other information (e.g. functions, organisms, calculated binding energies) are availbale at `data/Uniref50_entangled_homodimer.csv`.
 
