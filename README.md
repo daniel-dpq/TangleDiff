@@ -3,7 +3,7 @@ TangleDiff is a powerful latent-diffusion-based generative model capbale of desi
 
 We present here a dataset of 79,890 entangled sequences collected through large-scale sequence screening, ESMFold structure prediction and a setries of data cleaning steps. Sequences and all other information (e.g. functions, organisms, calculated binding energies) are availbale at `data/Uniref50_entangled_homodimer.csv`.
 
-To use TangleDiff, we provide a conda environment for the easy use of TangleDiff. You can install TangleDiff and its dependencies by:
+We provide a conda environment for the easy access. You can install TangleDiff and its dependencies by:
 
 ```shell
 git clone https://github.com/daniel-dpq/TangleDiff.git
