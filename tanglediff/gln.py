@@ -110,45 +110,45 @@ def pdb_to_gln_matrix(pdb_path: str, num_chain: int) -> np.ndarray:
     return gln_matrix
 
 
-# def pdb_to_core_gln_matrix(pdb_path: str, num_chain: int) -> np.ndarray:
-#     if num_chain != 1 and num_chain != 2:
-#         raise ValueError('Number of chains should be 1 or 2')
+def pdb_to_core_gln_matrix(pdb_path: str, num_chain: int) -> np.ndarray:
+    if num_chain != 1 and num_chain != 2:
+        raise ValueError('Number of chains should be 1 or 2')
     
-#     ss_string = pdb_to_ss_string(pdb_path)
-#     if ss_string is None:
-#         return None
+    ss_string = pdb_to_ss_string(pdb_path)
+    if ss_string is None:
+        return None
     
-#     if num_chain == 2:
-#         ss_string = ss_string[:len(ss_string)//2]
-#     # find the index of the first H/E and last H/E
-#     H_start = ss_string.find('H')
-#     E_start = ss_string.find('E')
-#     if H_start == -1 and E_start == -1:
-#         start = 0
-#         end = 0
-#     elif H_start == -1:
-#         start = E_start
-#         end = ss_string.rfind('E')
-#     elif E_start == -1:
-#         start = H_start
-#         end = ss_string.rfind('H')
-#     else:
-#         start = min(H_start, E_start)
-#         end = max(ss_string.rfind('H'), ss_string.rfind('E'))
-#     if start >= end:
-#         return None
+    if num_chain == 2:
+        ss_string = ss_string[:len(ss_string)//2]
+    # find the index of the first H/E and last H/E
+    H_start = ss_string.find('H')
+    E_start = ss_string.find('E')
+    if H_start == -1 and E_start == -1:
+        start = 0
+        end = 0
+    elif H_start == -1:
+        start = E_start
+        end = ss_string.rfind('E')
+    elif E_start == -1:
+        start = H_start
+        end = ss_string.rfind('H')
+    else:
+        start = min(H_start, E_start)
+        end = max(ss_string.rfind('H'), ss_string.rfind('E'))
+    if start >= end:
+        return None
 
 
-#     ca_pos = backb_pos_from_pdb(pdb_path)
+    ca_pos = backb_pos_from_pdb(pdb_path)
 
-#     if len(ca_pos) != num_chain:
-#         raise ValueError(f'Number of chains does not match: {pdb_path}')
+    if len(ca_pos) != num_chain:
+        raise ValueError(f'Number of chains does not match: {pdb_path}')
     
-#     if num_chain == 1:
-#         warnings.filterwarnings("ignore")
-#         gln_matrix = backb_pos_to_gln_matrix(ca_pos[0][start:end], ca_pos[0][start:end])
-#         warnings.resetwarnings()
-#     else:
-#         gln_matrix = backb_pos_to_gln_matrix(ca_pos[0][start:end], ca_pos[1][start:end])
+    if num_chain == 1:
+        warnings.filterwarnings("ignore")
+        gln_matrix = backb_pos_to_gln_matrix(ca_pos[0][start:end], ca_pos[0][start:end])
+        warnings.resetwarnings()
+    else:
+        gln_matrix = backb_pos_to_gln_matrix(ca_pos[0][start:end], ca_pos[1][start:end])
 
-#     return gln_matrix
+    return gln_matrix
