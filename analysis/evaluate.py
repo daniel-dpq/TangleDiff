@@ -98,14 +98,14 @@ def get_mean_plddt(pdb_path):
 def plddt(seqs: List[Tuple[str, str]], pdb_dir: str, fasta_name: str):
 
     seqs = sorted(seqs, key=lambda x: len(x[1]))
-    seqs_to_pred = [(header, seq) for header, seq in seqs if not os.path.exists(os.path.join(pdb_dir, f"{fasta_name}_{header}.pdb"))]
+    seqs_to_pred = [(header, seq+":"+seq) for header, seq in seqs if not os.path.exists(os.path.join(pdb_dir, f"{fasta_name}_{header}.pdb"))]
     logging.info(f"Predicting the structure for {len(seqs_to_pred)} sequences")
 
     if len(seqs_to_pred) > 0:
         model = esm.pretrained.esmfold_v1()
         model = model.eval().cuda()
         model.set_chunk_size(256)        
-        batched_sequences = list(create_batched_sequence_datasest(seqs_to_pred, max_tokens_per_batch=1680))
+        batched_sequences = list(create_batched_sequence_datasest(seqs_to_pred, max_tokens_per_batch=5120))
         for headers, sequences in tqdm(batched_sequences, desc="Predicting the structure"):
             output = model.infer(sequences)
             output = {key: value.cpu() for key, value in output.items()}
