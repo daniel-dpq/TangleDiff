@@ -199,7 +199,6 @@ def calculate(fasta_file, train_db):
     similarities = parse_blast_result(fasta_file, ids, blast_file, train_db)
     plddts = plddt(seqs_with_id, pdb_dir, fasta_name)
     pdb_files = [os.path.join(pdb_dir, f'{fasta_name}_{id_}.pdb') for id_ in ids]
-    knot_probs, knot_types = topology(pdb_files)
     ppls = esm_pseudo_perplexity(seqs)
     lengths = [len(seq) for seq in seqs]
     
@@ -209,8 +208,6 @@ def calculate(fasta_file, train_db):
         'ppl': ppls,
         'plddt': plddts,
         'similarity': similarities,
-        'knot_prob': knot_probs,
-        'knot_type': knot_types
     })
 
     df.to_csv(os.path.join(result_dir, f'result_{fasta_name}.csv'), index=False)
