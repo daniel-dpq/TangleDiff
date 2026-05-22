@@ -177,7 +177,7 @@ def esm_pseudo_perplexity(seqs: List[str]):
     return np.array(ppls)
 
 
-def calculate(fasta_file):
+def calculate(fasta_file, train_db):
     logging.basicConfig(level=logging.INFO)
     fasta_file = fasta_file
     fasta_dir = os.path.dirname(fasta_file)
@@ -196,7 +196,7 @@ def calculate(fasta_file):
     ids = [id_ for id_, _ in seqs_with_id]
     seqs = [seq for _, seq in seqs_with_id]
 
-    similarities = parse_blast_result(fasta_file, ids, blast_file)
+    similarities = parse_blast_result(fasta_file, ids, blast_file, train_db)
     plddts = plddt(seqs_with_id, pdb_dir, fasta_name)
     pdb_files = [os.path.join(pdb_dir, f'{fasta_name}_{id_}.pdb') for id_ in ids]
     knot_probs, knot_types = topology(pdb_files)
@@ -220,24 +220,6 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--fasta_file', type=str, required=True)
+    parser.add_argument('--train_db', type=str, required=True)
     args = parser.parse_args()
-    fasta_file = args.fasta_file
-    # calculate(fasta_file)
-    plot(fasta_file)
-    # umap(fasta_file)
-
-    # umap(fasta_file)
-    # fasta_file = '/home/puqing/design/knotdiffusion/results_single/L_wloss_stand_mask_samples_270000_10000.fasta'
-    # calculate(fasta_file)
-    # plot(fasta_file)
-    # umap(fasta_file)
-    # plot_different_length(fasta_file)
-
-    # fasta_file1 = '/home/puqing/design/knotdiffusion/results_single/L_wloss_stand_mask_predx_selfcond_samples_255000_5000.fasta'
-    # fasta_file2 = '/home/puqing/design/knotdiffusion/results_single/samples_255000_5000.fasta'
-    # combined = '/home/puqing/design/knotdiffusion/results_single/L_wloss_stand_mask_predx_selfcond_samples_255000_10000.fasta'
-
-
-
-
-    
+    calculate(args.fasta_file, args.train_db)
